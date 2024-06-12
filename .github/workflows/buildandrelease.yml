@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: 🔎 Get app_name from manifest.json
-        uses: sergeysova/jq-action@v2
+        uses: sergeysova/jq-action@a3f0d4ff59cc1dddf023fc0b325dd75b10deec58
         id: app_name
         with:
           cmd: 'jq .name src/manifest.json -r'
@@ -37,12 +37,12 @@ jobs:
 
       - name: Copy to build
         run: |
-          rsync -r ./src ./build
+          rsync -r ./src/* ./build
 
       - name: Minify
         uses: devatherock/minify-js@c4f40af50c45f8727c1a404d65f8dac342247b81
         with:
-          directory: './build'
+          directory: 'build'
           add_suffix: false
           exclusions: |-
             ./images/*
