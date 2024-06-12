@@ -37,6 +37,7 @@ jobs:
 
       - name: Copy to build
         run: |
+          mkdir ./build
           rsync -r ./src/* ./build
 
       - name: Minify
