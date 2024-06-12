@@ -42,7 +42,7 @@ jobs:
       - name: Minify
         uses: devatherock/minify-js@c4f40af50c45f8727c1a404d65f8dac342247b81
         with:
-          direcotry: './build'
+          directory: './build'
           add_suffix: false
           exclusions: |-
             ./images/*
