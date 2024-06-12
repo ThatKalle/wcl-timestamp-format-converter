@@ -1,0 +1,55 @@
+---
+name: 🚀 Build and Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  buildandrelease:
+    runs-on: ubuntu-latest
+    name: 🚀 Build and Release
+    steps:
+      - name: 🚚 Checkout code
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
+        with:
+          fetch-depth: 0
+
+      - name: 🔎 Get information from manifest.json
+        id: get
+        run: |
+          app_name=$(jq -r '.name' ./src/manifest.json)
+          app_name=$(echo $app_name | tr " " "-" | tr '[:upper:]' '[:lower:]')
+          app_version=jq -r '.version' ./src/manifest.json
+          echo "app_name=${app_name}" >> $GITHUB_OUTPUT
+          echo "app_version=${app_version}" >> $GITHUB_OUTPUT
+
+      - name: Copy to build
+        run: |
+          rsync -r ./src ./build
+
+      - name: Minify
+        uses: devatherock/minify-js@c4f40af50c45f8727c1a404d65f8dac342247b81
+        with:
+          direcotry: './build'
+          add_suffix: false
+          exclusions: |-
+            ./images/*
+
+      - name: 📦 Archive Release
+        uses: thedoctor0/zip-release@b57d897cb5d60cb78b51a507f63fa184cfe35554
+        with:
+          directory: './build'
+          type: 'zip'
+          filename: '${{steps.get.outputs.app_name}}_${{steps.get.outputs.app_version}}.zip'
+          exclusions: '*.git*'
+
+      - name: 🚀 Upload Release
+        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
+        with:
+          artifacts: "./build/${{steps.get.outputs.app_name}}_${{steps.get.outputs.app_version}}.zip"
+          tag: "${{steps.get.outputs.app_version}}"
+          body: "${{steps.get.outputs.app_name}} version ${{steps.get.outputs.app_version}}"
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./css/popup.css" />
+        <title>WCL timestamp format converter</title>
+    </head>
+    <body>
+        <div class="tile">
+            <div class="tile-header">
+                <div class="header">WCL timestamp format converter</div>
+            </div>
+
+            <div class="tile-content">
+                <div class="form-label">
+                    <label for="format">Format:</label>
+                </div>
+
+                <div class="select">
+                    <select id="formatPicker" name="format">
+                        <option value="paddingZero">07:32</option>
+                        <option value="noPaddingZero">7:32</option>
+                        <option value="withAnHAndPaddingZero">07h32</option>
+                        <option value="withAnHAndNoPaddingZero">7h32</option>
+                        <option value="militaryAndPaddingZero">0732</option>
+                        <option value="militaryAndNoPaddingZero">732</option>
+                    </select>
+                </div>
+
+                <button class="save-button" id="convertButton">Convert</button>
+            </div>
+        </div>
+
+        <script src="./js/popup.js"></script>
+    </body>
+</html>
