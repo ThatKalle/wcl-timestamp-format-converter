@@ -13,7 +13,7 @@ jobs:
     name: 🚀 Build and Release
     steps:
       - name: 🚚 Checkout code
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
 
@@ -55,7 +55,7 @@ jobs:
           exclusions: '*.git*'
 
       - name: 🚀 Upload Release
-        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
+        uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174
         with:
           artifacts: "./build/${{steps.min_app_name.outputs.min_app_name}}_${{steps.app_version.outputs.value}}.zip"
           tag: "${{steps.app_version.outputs.value}}"
