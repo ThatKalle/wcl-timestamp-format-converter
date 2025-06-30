@@ -55,7 +55,7 @@ jobs:
           exclusions: '*.git*'
 
       - name: 🚀 Upload Release
-        uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174
+        uses: ncipollo/release-action@bcfe5470707e8832e12347755757cec0eb3c22af
         with:
           artifacts: "./build/${{steps.min_app_name.outputs.min_app_name}}_${{steps.app_version.outputs.value}}.zip"
           tag: "${{steps.app_version.outputs.value}}"
